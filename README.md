@@ -22,11 +22,10 @@
 
 **使用步骤：**
 1. 安装微信 PC 版并登录
-2. 编辑项目目录下的 `config.json`，至少修改两处：
-   - `api_key` → 替换为你的 API Key
-   - `auto_reply_friends` → 替换为要回复的好友昵称
-3. 双击 `WeChatAutoChat.exe` 启动
-4. 程序会自动开始监听，收到新消息即自动回复
+2. 双击 `WeChatAutoChat.exe` 启动
+3. 在程序界面的"API 设置"中填入你的 API Key、Base URL 和模型名称，点击"保存"
+4. 点击"修改"（回复对象），输入要自动回复的好友昵称
+5. 程序会自动开始监听，收到新消息即自动回复
 
 > 注意：只下载 exe 文件无法运行，必须连同 `config.json` 和 `prompts/` 目录一起下载。
 

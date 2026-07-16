@@ -1,0 +1,9 @@
+logs/
+wxauto_logs/
+__pycache__/
+*.pyc
+history.json
+WeChatAutoChat.exe
+dist/
+build/
+*.spec

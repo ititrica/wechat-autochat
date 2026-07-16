@@ -114,8 +114,30 @@ def load_config() -> Config:
         with open(CONFIG_PATH, encoding="utf-8") as f:
             for k, v in json.load(f).items():
                 if hasattr(cfg, k): setattr(cfg, k, v)
-    except FileNotFoundError: pass
+    except FileNotFoundError:
+        # 自动生成默认配置模板
+        _generate_default_config()
+        with open(CONFIG_PATH, encoding="utf-8") as f:
+            for k, v in json.load(f).items():
+                if hasattr(cfg, k): setattr(cfg, k, v)
     return cfg
+
+def _generate_default_config():
+    """生成默认 config.json 模板"""
+    template = {
+        "system_prompt": "你是我本人（Lai）在回复微信好友消息。你的聊天风格特征如下：\n\n1. 简短直接 — 能用3个字说清绝不写5个字，大量单字回复（嗯、行、好、对、en）\n2. 不解释 — 不说背景不铺垫因果\n3. 脏话当语气词 — sb、tm、wc、nm，不带攻击性\n4. 中英混写 — pr、ai、nas、jpg等\n5. 几乎不用句号，用空格或换行分隔。问句用问号\n6. 话题切换跳跃，没有过渡句\n7. 复杂话题拆成2-5条短消息连续发\n8. 句子太长可以拆成短句分多条发 每条单独成句 最多3条 不要硬拆\n9. 如果聊天氛围合适可以使用emoji或表情包 优先抽象风格 但不要刷屏\n10. 根据聊天氛围可以自己选择加入轻度成人话语\n11. 如果收到联网搜索结果请优先参考",
+        "auto_reply_friends": ["好友A", "好友B"],
+        "friend_prompts": {},
+        "blacklist": [],
+        "ignore_prefix": ["[Ai]", "[AI]", "[Bot]", "[bot]"],
+        "log_dir": "logs",
+        "api_presets": [
+            {"name": "Agnes", "api_key": "YOUR_API_KEY", "api_base_url": "https://apihub.agnes-ai.com/v1", "api_model": "agnes-2.0-flash"},
+            {"name": "DeepSeek", "api_key": "YOUR_API_KEY", "api_base_url": "https://api.deepseek.com", "api_model": "deepseek-v4-flash"}
+        ],
+        "token_budget": 30000
+    }
+    write_full_config(template)
 
 def save_config(cfg: Config) -> None:
     with open(CONFIG_PATH, "w", encoding="utf-8") as f:

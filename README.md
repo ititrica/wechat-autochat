@@ -14,24 +14,33 @@
 
 ## 下载与使用
 
-### 方式一：GUI 版本（推荐）
+### 方式一：GUI 版本（推荐，免 Python 环境）
 
-下载 `WeChatAutoChat.exe`，直接双击运行。
+下载 `WeChatAutoChat.exe`，放到任意目录双击运行。
+
+> **注意：** exe 已包含 `wxauto4`、`openai`、`pystray` 等所有依赖，不需要安装 Python。
+> 第一次运行时会自动在同目录生成 `config.json` 模板，填入 API Key 即可使用。
 
 **使用步骤：**
 1. 安装微信 PC 版并登录
-2. 编辑同目录下的 `config.json`，填入 API Key 和好友名单
-3. 双击 `WeChatAutoChat.exe` 启动
-4. 在 UI 左侧面板填写 API Key（或直接改 config.json），点"保存"
-5. 程序会自动开始监听，收到新消息即自动回复
+2. 双击 `WeChatAutoChat.exe` 启动
+3. 程序会自动在同目录生成 `config.json`
+4. 编辑 `config.json`，至少修改两处：
+   - `api_key` → 替换为你的 API Key
+   - `auto_reply_friends` → 替换为要回复的好友昵称
+5. 重启 exe（或到 UI 界面填写后点"保存"）
+6. 程序会自动开始监听，收到新消息即自动回复
 
 **换电脑时的便携性：**
-整个 `wechat-autochat` 文件夹复制到另一台 Windows 电脑即可运行，只需重装微信和 Node.js（如需要联网搜索）。
+只复制 `WeChatAutoChat.exe` + `config.json` 到任意 Windows 电脑即可运行。需重新安装微信 PC 版，Node.js 仅联网搜索需要。
 
-### 方式二：命令行版本
+### 方式二：命令行版本（需 Python 环境）
 
 ```bash
+# 先安装依赖
 pip install wxauto4 openai
+
+# 再运行
 python wechat_auto_reply.py
 ```
 
